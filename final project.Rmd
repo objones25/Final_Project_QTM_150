@@ -4,8 +4,34 @@ author: "Owen Jones"
 date: "4/21/2021"
 output: html_document
 ---
+```{r}
+library('tidyverse')
+library('anytime')
+```
+
+**1**
+Our final project is on the data set CAB_RIDES: investigating the relationship between time_stamp and price. Later on, we will explore how this relationship is affected by the variables cab_type and name. 
 
 ```{r}
-cab_rides<-read.csv("Downloads/CAB_RIDES.csv")
+cab_rides<-read.csv('https://raw.githubusercontent.com/objones25/Final_Project_QTM_150/master/CAB_RIDES.csv')
+```
 
+**2**
+Our response variable will be price because we want to determine the effect that the variable time_stamp has on the variable price.
+
+```{r}
+summary(cab_rides$price)
+```
+**3**
+The distribution of prices is very right skewed. Outliers are considered values above 1.5*IQR + 3Q. 5143 NA's and outliers were removed from the data set 
+```{r}
+ggplot(data = cab_rides)+geom_boxplot(mapping = aes(y = 0, x = price), outlier.shape = NA, na.rm = T)
+ggplot(data = cab_rides)+geom_histogram(mapping = aes(x = price), binwidth = 1, na.rm = T)
+cab_subset<-subset(cab_rides, price < 1.5*IQR(price, na.rm = T) + quantile(price, 0.75, na.rm = T))
+```
+
+**4**
+We chose time_stamp as our explanatory variable.
+```{r}
+cab_subset<-mutate(cab_subset, anytime(time_stamp))
 ```
