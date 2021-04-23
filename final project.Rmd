@@ -33,5 +33,7 @@ cab_subset<-subset(cab_rides, price < 1.5*IQR(price, na.rm = T) + quantile(price
 **4**
 We chose time_stamp as our explanatory variable.
 ```{r}
-cab_subset<-mutate(cab_subset, anytime(time_stamp))
+cab_subset<-mutate(cab_subset, 'time' = anytime(time_stamp))
+cab_subset<-mutate(cab_subset, 'date' = anydate(time_stamp))
+ggplot(data = cab_subset)+geom_histogram(mapping = aes(x = date), binwidth = 10, na.rm = T)
 ```
