@@ -10,7 +10,7 @@ library('anytime')
 ```
 
 **1**
-Our final project is on the data set CAB_RIDES: investigating the relationship between time_stamp and price. Later on, we will explore how this relationship is affected by the variables cab_type and name. 
+Our final project is on the data set CAB_RIDES: investigating the relationship between distance and price. Later on, we will explore how this relationship is affected by the variables cab_type and name. 
 
 ```{r}
 cab_rides<-read.csv('https://raw.githubusercontent.com/objones25/Final_Project_QTM_150/master/CAB_RIDES.csv')
@@ -33,7 +33,7 @@ cab_subset<-subset(cab_rides, price < 1.5*IQR(price, na.rm = T) + quantile(price
 **4**
 We chose time_stamp as our explanatory variable.
 ```{r}
-cab_subset<-mutate(cab_subset, 'time' = anytime(time_stamp/1000) )
-cab_subset<-mutate(cab_subset, 'date' = anydate(time_stamp/1000))
-ggplot(data = cab_subset)+geom_histogram(mapping = aes(x = time), binwidth = 100, na.rm = T)
+ggplot(data = cab_subset)+geom_histogram(mapping = aes(x = distance), binwidth = 0.01, na.rm = T)
 ```
+
+**5**
